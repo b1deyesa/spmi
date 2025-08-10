@@ -1,6 +1,13 @@
 <x-layout.form>
     <div class="flex justify-between">
         <h1 class="text-lg font-bold text-gray-700">Daftar Formulir 4 SPMI</h1>
+        <div class="flex text-sm">
+            <select class="border rounded-md w-[350px] px-2 py-1 cursor-pointer border-gray-300 bg-zinc-50" onchange="location.href = '{{ route(Route::currentRouteName(), ['fakultas' => '__FAKULTAS__', 'programStudi' => request()->route('programStudi')]) }}'.replace('__FAKULTAS__', this.value);">
+                @foreach (Auth::user()->fakultases as $fakultas)
+                    <option value="{{ $fakultas->id }}" @selected($fakultas->id == request()->route('fakultas')->id)>{{ $fakultas->nama }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
     <div class="flex flex-col gap-2 mt-7">
         <div class="flex flex-col gap-2">
