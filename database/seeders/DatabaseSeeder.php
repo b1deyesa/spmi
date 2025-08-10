@@ -33,12 +33,13 @@ class DatabaseSeeder extends Seeder
         // Dosen::factory(100)->create();
         // Mahasiswa::factory(300)->create();
         
-        $user = User::factory()->create([
+        $deo = User::factory()->create([
             'role_id' => 1,
             'name' => 'Imagodeo Bideyesa',
             'email' => 'bideyesa@gmail.com',
             'password' => Hash::make('magox1905'),
         ]);
+        $deo->fakultases()->sync([5,7,10]);
         
         $users = [
             ['name' => 'Paul', 'email' => 'paul@example.com', 'role_id' => 1, 'fakultas_id' => 11],
@@ -63,9 +64,6 @@ class DatabaseSeeder extends Seeder
                 $user->fakultases()->sync([$data['fakultas_id']]);
             }
         }
-
-        
-        $user->fakultases()->sync([5,7,10]);
         
         $prodiIds = [1, 2, 3, 4, 5, 6]; // Pastikan ID ini sudah ada di tabel program_studis
 
