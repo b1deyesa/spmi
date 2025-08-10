@@ -9,12 +9,12 @@ use Illuminate\Database\Seeder;
 class KebijakanSeeder extends Seeder
 {
     public $kebijakan = [
-        'Pengaturan pengelolaan SPMI Institusi',
-        'Pengaturan organisasi pengelola SPMI Institusi',
-        'Pengaturan terkait pelaksanaan standar dalam SPMI Institusi',
+        'Pengaturan pengelolaan SPMI UPPS',
+        'Pengaturan organisasi pengelola SPMI UPPS',
+        'Pengaturan terkait pelaksanaan standar dalam SPMI UPPS',
         'Pengaturan terkait evaluasi pelaksanaan standar',
         'Pengaturan terkait pengendalian pelaksanaan standar',
-        'Pengaturan terkait peningkatan standar dalam SPMI Institusi'
+        'Pengaturan terkait peningkatan standar dalam SPMI UPPS'
     ];
 
     /**
