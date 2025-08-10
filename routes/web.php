@@ -8,6 +8,10 @@ Route::get('/', [LoginController::class, 'index'])->name('login.index');
 Route::post('/', [LoginController::class, 'post'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
+Route::namespace('App\Http\Controllers')->group(function() {
+    Route::get('/spectator', 'SpectatorController@index')->name('spectator');
+});
+
 Route::middleware('auth')->group(function () {
     Route::middleware('fakultas')->group(function() {
         Route::name('form.')->prefix('form/{fakultas:id}')->namespace('App\Http\Controllers\Form')->group(function() {
@@ -22,13 +26,14 @@ Route::middleware('auth')->group(function () {
             Route::get('/monitoring-tenaga-kependidikan/{programStudi:id}/{year}', 'MonitoringTenagaKependidikanController@index')->name('monitoring-tenaga-kependidikan');
             Route::get('/rekapitulasi-evaluasi-skor-toefl-lulusan/{programStudi:id}/{year}', 'RekapitulasiEvaluasiSkorToeflLulusanController@index')->name('rekapitulasi-evaluasi-skor-toefl-lulusan');
         });
-        Route::name('dashboard.')->prefix('dashboard/{fakultas:id}')->namespace('App\Http\Controllers\Dashboard')->group(function() {
+        Route::name('dashboard.')->prefix('dashboard/{fakultas}')->namespace('App\Http\Controllers\Dashboard')->group(function() {
             Route::get('/', 'IndexController@index')->name('index');
             Route::prefix('penetapan-pelaksanaan')->name('penetapan-pelaksanaan.')->namespace('PenetapanPelaksanaan')->group(function() { 
                 Route::get('/profil-fakultas/{year}', 'ProfilFakultasController@index')->name('profil-fakultas');
                 Route::get('/pengaturan-kebijakan-spmi', 'PengaturanKebijakanSpmiController@index')->name('pengaturan-kebijakan-spmi');
                 Route::prefix('standar-nasional-pendidikan-tinggi')->name('standar-nasional-pendidikan-tinggi.')->namespace('StandarNasionalPendidikanTinggi')->group(function() { 
                     Route::prefix('fakultas')->name('fakultas.')->namespace('Fakultas')->group(function() { 
+                        Route::get('/akreditasi', 'AkreditasiController@index')->name('akreditasi');
                         Route::get('/profil-fakultas', 'ProfilFakultasController@index')->name('profil-fakultas');
                         Route::put('/profil-fakultas', 'ProfilFakultasController@update')->name('profil-fakultas.update');
                         Route::get('/data-terkait-standar-nasional-pendidikan-tinggi', 'DataTerkaitStandarNasionalPendidikanTinggiController@index')->name('data-terkait-standar-nasional-pendidikan-tinggi');

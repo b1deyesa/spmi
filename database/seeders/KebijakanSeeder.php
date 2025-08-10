@@ -16,7 +16,7 @@ class KebijakanSeeder extends Seeder
         'Pengaturan terkait pengendalian pelaksanaan standar',
         'Pengaturan terkait peningkatan standar dalam SPMI Institusi'
     ];
-    
+
     /**
      * Run the database seeds.
      */

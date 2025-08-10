@@ -2,7 +2,7 @@
     
     <div class="flex items-center gap-2 mb-5 ml-2">
         <i class="fa-solid fa-graduation-cap"></i>
-        <h2 class="text-md">Standar Nasional Pendidikan Tinggi</h2>
+        <h2 class="text-md">Standar Universitas</h2>
     </div>
     
     <ul class="relative flex">

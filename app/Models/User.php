@@ -61,6 +61,11 @@ class User extends Authenticatable
     
     public function hasRole($role)
     {
-        return $this->role === $role;
+        return $this->role->name === $role; // Adjust based on your role structure
+    }
+
+    public function getRoleName()
+    {
+        return $this->role->name; // Adjust based on your role structure
     }
 }

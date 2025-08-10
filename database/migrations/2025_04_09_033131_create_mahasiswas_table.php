@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nim')->unique();
             $table->string('nama')->nullable();
             $table->string('ipk')->nullable();
-            $table->date('tanggal_masuk')->nullable();
+            $table->date('tanggal_masuk')->default(DB::raw('(CURRENT_DATE)'));
             $table->date('tanggal_lulus')->nullable();
             $table->boolean('isPutus')->default(false);
         });

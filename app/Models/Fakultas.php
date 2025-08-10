@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Profil;
 use App\Models\Kebijakan;
+use App\Models\Penetapan;
 use App\Models\ProgramStudi;
 use App\Models\FakultasProfil;
 use App\Models\FakultasKebijakan;
@@ -38,6 +39,14 @@ class Fakultas extends Model
                     'profil_id' => $profil->id,
                 ]);
             }
+            
+            $penetapans = Penetapan::all();
+            foreach ($penetapans as $penetapan) {
+                FakultasPenetapan::create([
+                    'fakultas_id' => $fakultas->id,
+                    'penetapan_id' => $penetapan->id,
+                ]);
+            }
         });
     }
     
@@ -59,5 +68,10 @@ class Fakultas extends Model
     public function fakultasProfils(): HasMany
     {
         return $this->hasMany(FakultasProfil::class);
+    }
+    
+    public function fakultasPenetapans(): HasMany
+    {
+        return $this->hasMany(FakultasPenetapan::class);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\ProgramStudi;
@@ -23,6 +25,7 @@ class DatabaseSeeder extends Seeder
             KebijakanSeeder::class,
             RoleSeeder::class,
             ProfilSeeder::class,
+            PenetapanSeeder::class,
         ]);
         
         // Fakultas::factory(10)->create();
@@ -35,6 +38,24 @@ class DatabaseSeeder extends Seeder
             'name' => 'Imagodeo Bideyesa',
             'email' => 'bideyesa@gmail.com',
             'password' => Hash::make('magox1905'),
+        ]);
+        
+        Dosen::create([
+            'program_studi_id' => 3,
+            'nid' => '3523523',
+            'nama' => 'Jhon Latuny'
+        ]);
+        
+        
+        Mahasiswa::create([
+            'program_studi_id' => 3,
+            'nim' => '352352312',
+            'nama' => 'Deo'
+        ]);
+        Mahasiswa::create([
+            'program_studi_id' => 3,
+            'nim' => '3522312',
+            'nama' => 'Deo'
         ]);
         
         $user->fakultases()->sync([5,7,10]);

@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Fakultas;
 use Illuminate\Http\Request;
 
-class DataTerkaitStandarPenelitianController extends Controller
+class AkreditasiController extends Controller
 {
     public function index(Fakultas $fakultas)
     {
-        return view('dashboard.penetapan-pelaksanaan.standar-nasional-pendidikan-tinggi.fakultas.data-terkait-standar-penelitian');
+        return view('dashboard.penetapan-pelaksanaan.standar-nasional-pendidikan-tinggi.fakultas.akreditasi', [
+            'fakultas' => $fakultas
+        ]);
     }
 }

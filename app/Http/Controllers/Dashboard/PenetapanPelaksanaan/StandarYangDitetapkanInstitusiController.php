@@ -10,6 +10,8 @@ class StandarYangDitetapkanInstitusiController extends Controller
 {
     public function index(Fakultas $fakultas)
     {
-        return view('dashboard.penetapan-pelaksanaan.standar-yang-ditetapkan-institusi');
+        return view('dashboard.penetapan-pelaksanaan.standar-yang-ditetapkan-institusi', [
+            'fakultas' => $fakultas
+        ]);
     }
 }

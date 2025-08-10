@@ -12,30 +12,20 @@
     <div class="flex justify-between">
         <div class="flex items-center gap-2 ml-2">
             <i class="fa-solid fa-address-card"></i>
-            <h2 class="text-md">Profil Fakultas</h2>
+            <h2 class="text-md">Profil UPPS</h2>
         </div>
-        <div class="flex items-center text-sm">
+        {{-- <div class="flex items-center text-sm">
             <select class="border rounded-md w-[100px] px-2 py-1 cursor-pointer border-gray-300 bg-zinc-50" onchange="location.href = '{{ route(Route::currentRouteName(), ['fakultas' => request()->route('fakultas'), 'year' => '__YEAR__']) }}'.replace('__YEAR__', this.value);">
                 @foreach (range(date('Y'), date('Y') - 2) as $year)
                     <option value="{{ $year }}" @selected($year == request()->route('year'))>{{ $year }}</option>
                 @endforeach
             </select>
-        </div>
+        </div> --}}
     </div>
     
     <div class="flex flex-col gap-5 mt-5">
         <div class="text-sm p-5 border rounded-md border-gray-300 bg-zinc-50">
             <table>
-                <tr>
-                    <td>Akreditasi Fakultas</td>
-                    <td>:</td>
-                    <td>
-                        <div class="flex gap-2">
-                            <span class="text-sm px-4 py-2 rounded-md bg-gray-200">-</span>
-                            <span class="flex items-center gap-2 px-3 py-1 rounded-md bg-gray-200">Berlaku sampai<span class="text-xs px-2 py-1 bg-zinc-50 rounded-md">21/02/1970</span></span>
-                        </div>
-                    </td>
-                </tr>
                 <tr>
                     <td>Akreditasi Program Studi</td>
                     <td>:</td>

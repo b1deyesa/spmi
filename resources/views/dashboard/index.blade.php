@@ -4,7 +4,7 @@
         <div class="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-blue-900/30 to-zinc-200 to-100%"></div>
     </div>
     <div class="relative flex flex-col gap-2 z-10">
-        <div class="flex justify-center mt-50">
+        {{-- <div class="flex justify-center mt-50 mb-40">
             <form method="GET" class="relative flex justify-center w-full text-sm max-w-[700px]">
                 <div class="w-full">
                     <x-input type="search" name="search" placeholder="Pencarian Fakultas, Program Studi, Mahasiswa, dan Dosen" class="shadow-lg shadow-gray-500/10" />
@@ -13,151 +13,225 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-        </div>
-        <div class="flex flex-col gap-5 w-[1100px] m-auto">
-            <div class="flex flex-col bg-gray-50/80 p-4 rounded-md w-full gap-4 mt-40">
-                <h2 class="text-lg font-bold text-gray-700">Jumlah Progarm Studi per UPPS</h2>
-                <x-chart id="bar_fakultas" type="bar" :labels="($sorted = $fakultas->sortByDesc(fn($f) => $f->programStudis()->count()))->pluck('nama')->values()->toArray()" :data="$sorted->map(fn($f) => $f->programStudis()->count())->values()->toArray()" :colors="$sorted->pluck('warna')->values()->toArray()" title="Jumlah Program Studi per Fakultas" />
-            </div>
-            <div class="flex flex-col bg-gray-50/80 p-4 rounded-md w-full gap-4">
-                <h2 class="text-lg font-bold text-gray-700">Jumlah & Presentase Prodi UNPATTI berdasarkan Peringkat Akreditasi</h2>
-                <div class="flex w-full gap-5">
-                    @php
-                        $jumlah_total = \App\Models\ProgramStudi::count();
-                        $jumlah_terakreditasi = \App\Models\ProgramStudi::has('akreditasis')->count();
-                        $jumlah_belum = $jumlah_total - $jumlah_terakreditasi;
-                        $labels = ['Terakreditasi', 'Belum Terakreditasi'];
-                        $data = [$jumlah_terakreditasi, $jumlah_belum];
-                        $colors = ['#4ade80', '#f87171'];
-                    @endphp
-                    <x-chart id="bar_akreditasi_prodi" type="bar" :labels="$labels" :data="$data" :colors="$colors" title="Jumlah" />
-                    <x-chart id="pie_akreditasi_prodi" type="pie" :labels="$labels" :data="$data" :colors="$colors" title="Jumlah" />
-                </div>
-                @php
-                    $orderedGelar = ['Unggul', 'A', 'Baik Sekali', 'B', 'Baik', 'C', 'Tidak Terakreditasi'];
-                    $colorMap = [
-                        'Unggul' => '#1e3a8a',
-                        'A' => '#2563eb',
-                        'Baik Sekali' => '#0ea5e9',
-                        'B' => '#22c55e',
-                        'Baik' => '#fde047',
-                        'C' => '#facc15',
-                        'Tidak Terakreditasi' => '#f87171',
-                    ];
-                    $labels = $data = $colors = [];
-                    foreach ($orderedGelar as $gelar) {
-                        $labels[] = $gelar;
-                        $count = $gelar === 'Tidak Terakreditasi' ? \App\Models\ProgramStudi::doesntHave('akreditasis')->count() : \App\Models\ProgramStudi::whereHas('akreditasis', fn($q) => $q->where('gelar', $gelar))->count();
-                        $data[] = $count;
-                        $colors[] = $colorMap[$gelar];
-                    }
-                @endphp
-                <x-chart id="bar_akreditasi" type="bar" :labels="$labels" :data="$data" :colors="$colors" title="Jumlah" />
-            </div>
-            @php
-                $gelarList = ['Unggul', 'A', 'Baik Sekali', 'B', 'Baik', 'C', 'Belum Terakreditasi'];
-                $colorMap = [
-                    'Unggul' => 'from-blue-900 to-blue-800',
-                    'A' => 'from-blue-700 to-blue-600',
-                    'Baik Sekali' => 'from-sky-400 to-sky-300',
-                    'B' => 'from-green-500 to-green-400',
-                    'Baik' => 'from-yellow-300 to-yellow-200',
-                    'C' => 'from-yellow-500 to-yellow-400',
-                    'Belum Terakreditasi' => 'from-red-400 to-red-300',
-                ];
-                $data = [];
-                foreach ($gelarList as $gelar) {
-                    $data[$gelar] = $gelar === 'Belum Terakreditasi' ? \App\Models\ProgramStudi::doesntHave('akreditasis')->get() : \App\Models\ProgramStudi::whereHas('akreditasis', fn($q) => $q->where('gelar', $gelar))->with(['akreditasis' => fn($q) => $q->where('gelar', $gelar)])->get();
-                }
-            @endphp
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-                @foreach ($data as $gelar => $prodis)
-                    @php
-                        $tableId = 'table_akreditasi_' . Str::slug($gelar, '_');
-                        $isBelum = $gelar === 'Belum Terakreditasi';
-                        $bgColor = $colorMap[$gelar] ?? 'from-gray-50 to-gray-100';
-                    @endphp
-                    <div class="{{ $isBelum ? 'md:col-span-2 xl:col-span-2' : '' }} bg-gradient-to-b {{ $bgColor }} border border-gray-300 shadow-lg shadow-gray-500/10 p-4 rounded-md">
-                        <h2 class="text-sm font-semibold mb-2 text-center uppercase text-white drop-shadow">Akreditasi {{ $gelar }}</h2>
-                        @if ($prodis->isEmpty())
-                            <p class="text-gray-100 italic text-sm text-center">Tidak ada prodi</p>
+        </div> --}}
+        <div class="flex flex-col gap-5 w-[1000px] m-auto py-8">
+            <div class="flex gap-5">
+                <div class="flex flex-col gap-5 justify-center items-center border border-gray-300 p-4 rounded-md bg-zinc-100">
+                    <h2 class="text-2xl font-semibold text-gray-500 text-center w-[400px]">Ranking UPPS</h2>
+                    @if(isset($podiumData['fakultas_data']['rank']))
+                        @php $rank = $podiumData['fakultas_data']['rank']; @endphp
+                        @if($rank == 1)
+                            <span class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-yellow-500 text-white font-bold text-3xl">{{ $rank }}</span>
+                        @elseif($rank == 2)
+                            <span class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-400 text-white font-bold text-3xl">{{ $rank }}</span>
+                        @elseif($rank == 3)
+                            <span class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-700 text-white font-bold text-3xl">{{ $rank }}</span>
                         @else
-                            <div class="overflow-x-auto max-h-[300px] bg-white rounded-md shadow-sm">
-                                <table id="{{ $tableId }}" class="display w-full text-sm">
-                                    <thead class="bg-gray-100 text-gray-700">
-                                        <tr>
-                                            <th class="px-2 py-1 text-left">Program Studi</th>
-                                            <th class="px-2 py-1 text-left">Masa Berlaku</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($prodis as $prodi)
-                                            @if ($isBelum)
-                                                <tr>
-                                                    <td class="px-2 py-1">{{ $prodi->nama }}</td>
-                                                    <td class="px-2 py-1 italic text-gray-400">—</td>
-                                                </tr>
-                                            @else
-                                                @foreach ($prodi->akreditasis as $akreditasi)
-                                                    <tr>
-                                                        <td class="px-2 py-1">{{ $prodi->nama }}</td>
-                                                        <td class="px-2 py-1">{{ \Carbon\Carbon::parse($akreditasi->pivot->tanggal_berlaku)->format('d M Y') }} — {{ \Carbon\Carbon::parse($akreditasi->pivot->tanggal_berakhir)->format('d M Y') }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                            <span class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-300 text-black font-bold text-3xl">{{ $rank }}</span>
                         @endif
+                    @else
+                        <span class="text-gray-500">Data tidak tersedia</span>
+                    @endif
+                </div>
+                <div class="flex flex-col gap-3 w-full">
+                    <div class="flex flex-col gap-2 bg-white border border-gray-300 p-4 rounded-md">
+                        <div class="flex flex-col gap-2 bg border border-gray-300 p-4 rounded-md bg-zinc-100">
+                            <h2 class="text-sm font-semibold text-gray-500">Ranking Dokumen Pengaturan Kebijakan</h2>
+                            @if($progres_kebijakan['rank'] == 1)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-yellow-500 text-white font-bold">
+                                    {{ $progres_kebijakan['rank'] }}
+                                </span>
+                            @elseif($progres_kebijakan['rank'] == 2)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-400 text-white font-bold">
+                                    {{ $progres_kebijakan['rank'] }}
+                                </span>
+                            @elseif($progres_kebijakan['rank'] == 3)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-700 text-white font-bold">
+                                    {{ $progres_kebijakan['rank'] }}
+                                </span>
+                            @else
+                                {{ $progres_kebijakan['rank'] }}
+                            @endif
+                            <div class="flex gap-4">
+                                <td class="px-3 py-2 border border-gray-200" width="100px">
+                                    <div class="relative w-full border border-gray-300 bg-zinc-50 rounded-full">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $progres_kebijakan['progress'] }}%"></div>
+                                    </div>
+                                </td>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 bg border border-gray-300 p-4 rounded-md bg-zinc-100">
+                            <h2 class="text-sm font-semibold text-gray-500">Ranking Penetapan Kebijakan</h2>
+                            @if($progres_penetapan['rank'] == 1)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-yellow-500 text-white font-bold">
+                                    {{ $progres_penetapan['rank'] }}
+                                </span>
+                            @elseif($progres_penetapan['rank'] == 2)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-400 text-white font-bold">
+                                    {{ $progres_penetapan['rank'] }}
+                                </span>
+                            @elseif($progres_penetapan['rank'] == 3)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-700 text-white font-bold">
+                                    {{ $progres_penetapan['rank'] }}
+                                </span>
+                            @else
+                                {{ $progres_penetapan['rank'] }}
+                            @endif
+                            <div class="flex gap-4">
+                                <td class="px-3 py-2 border border-gray-200" width="100px">
+                                    <div class="relative w-full border border-gray-300 bg-zinc-50 rounded-full">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $progres_penetapan['progress'] }}%"></div>
+                                    </div>
+                                </td>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 bg border border-gray-300 p-4 rounded-md bg-zinc-100">
+                            <h2 class="text-sm font-semibold text-gray-500">Ranking Pengisian Data Profil UPPS</h2>
+                            @if($progres_profil['rank'] == 1)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-yellow-500 text-white font-bold">
+                                    {{ $progres_profil['rank'] }}
+                                </span>
+                            @elseif($progres_profil['rank'] == 2)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-400 text-white font-bold">
+                                    {{ $progres_profil['rank'] }}
+                                </span>
+                            @elseif($progres_profil['rank'] == 3)
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-700 text-white font-bold">
+                                    {{ $progres_profil['rank'] }}
+                                </span>
+                            @else
+                                {{ $progres_profil['rank'] }}
+                            @endif
+                            <div class="flex gap-4">
+                                <td class="px-3 py-2 border border-gray-200" width="100px">
+                                    <div class="relative w-full border border-gray-300 bg-zinc-50 rounded-full">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $progres_profil['progress'] }}%"></div>
+                                    </div>
+                                </td>
+                            </div>
+                        </div>
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const table = document.querySelector("#{{ $tableId }}");
-                            if (table) {
-                                new simpleDatatables.DataTable(table, { perPage: 999, searchable: false, paging: false, sortable: false });
-                            }
-                        });
-                    </script>
-                @endforeach
-            </div>
-            <div class="flex flex-col bg-gray-50/80 p-4 rounded-md w-full gap-4">
-                <h2 class="text-lg font-bold text-gray-700">Jumlah & Prosentase Jumlah Prodi Unpatti berdasarkan Strata Pendidikan dan Fakultas/UPPS</h2>
-
-                @php
-                    $j = $jenjang->filter(fn($j) => $j->programStudis()->count() > 0)->sortByDesc(fn($j) => $j->programStudis()->count());
-                @endphp
-                <div class="flex gap-5">
-                    <x-chart id="pie_jenjang" width="50%" type="pie" :labels="$j->pluck('inisial')->values()->toArray()" :data="$j->map(fn($j) => $j->programStudis()->count())->values()->toArray()" :colors="$j->pluck('warna')->values()->toArray()" />
-                    <x-chart id="bar_jenjang" type="bar" :labels="$j->pluck('inisial')->values()->toArray()" :data="$j->map(fn($j) => $j->programStudis()->count())->values()->toArray()" :colors="$j->pluck('warna')->values()->toArray()" />
                 </div>
             </div>
-            <div class="w-full bg-gradient-to-b from-gray-50 to-gray-100 border border-gray-300 shadow-lg shadow-gray-500/10 p-4 rounded-md">
-                <table id="table_program_studi" class="display overflow-auto h-[300px]">
-                    <thead>
-                        <tr>
-                            <th>UPPS</th>
-                            <th>Nama Program Studi</th>
-                            <th>Strata</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($program_studis as $program_studi)
-                            <tr>
-                                <td>{{ $program_studi->fakultas->nama !== 'Pascasarjana' ? 'Fakultas ' . $program_studi->fakultas->nama : $program_studi->fakultas->nama }}</td>
-                                <td>{{ $program_studi->nama }}</td>
-                                <td align="center">{{ $program_studi->jenjang->inisial }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div class="flex flex-col gap-5 bg-white border border-gray-300 p-4 rounded-md">
+                <h2 class="text-lg font-bold text-gray-700">Akreditasi</h2>
+                <div class="flex flex-col w-full gap-7">
+                    <div class="flex gap-5">
+                        <div class="flex flex-col gap-3 w-full">
+                            <h2 class="text-sm font-semibold text-gray-500">Total Program Studi Terakreditasi</h2>
+                            <x-chart id="bar_akreditasi_faklutas" height="200px" type="bar"  :labels="['Terakreditasi', 'Belum Terakreditasi']"  :data="[$akreditasi_fakultas['jumlah_terakreditasi'], $akreditasi_fakultas['jumlah_belum']]"  :colors="['#4ade80', '#f87171']"  title="Jumlah Prodi Terakreditasi vs Belum" />
+                        </div>
+                        <div class="flex flex-col gap-3 w-full">
+                            <h2 class="text-sm font-semibold text-gray-500">Presentase Program Studi Terakreditasi</h2>
+                            <x-chart id="pie_akreditasi_faklutas" height="200px" type="pie" :labels="['Terakreditasi', 'Belum Terakreditasi']" :data="[$akreditasi_fakultas['jumlah_terakreditasi'], $akreditasi_fakultas['jumlah_belum']]" :colors="['#4ade80', '#f87171']" title="Persentase Prodi" />
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3 w-full">
+                        <h2 class="text-sm font-semibold text-gray-500">Total Program Studi per Level Akreditasi</h2>
+                        <x-chart id="bar_akreditasi_fakultas" height="200px" type="bar" :labels="$akreditasi_fakultas['chart_data']['labels']" :data="$akreditasi_fakultas['chart_data']['data']" :colors="$akreditasi_fakultas['chart_data']['colors']" title="Distribusi Tingkat Akreditasi" />
+                    </div>
+                    <div class="flex flex-col gap-3 w-full">
+                        <h2 class="text-sm font-semibold text-gray-500">Detail Akerditasi per Program Studi</h2>
+                        <div class="overflow-x-auto bg-white border border-gray-200 rounded">
+                            <table class="w-full text-xs">
+                                <thead class="bg-gray-100 text-gray-700">
+                                    <tr>
+                                        <th class="px-3 py-2 text-left">Program Studi</th>
+                                        <th class="px-3 py-2 text-left">Status Akreditasi</th>
+                                        <th class="px-3 py-2 text-left">Sisa Waktu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($akreditasi_fakultas['akreditasi_data'] as $data)
+                                        @foreach ($data['prodis'] as $prodi)
+                                            <tr class="hover:bg-gray-50">
+                                                <td class="px-3 py-2 border border-gray-200">{{ $prodi->nama }}</td>
+                                                <td width="150px" align="center" class="px-3 py-2 text-white border border-gray-200">
+                                                    <div class="flex text-center justify-center py-1 rounded-full" style="background: {{ $data['color'] }}">
+                                                        {{ $data['gelar'] }}
+                                                    </div>
+                                                </td>
+                                                <td width="250px" class="px-3 py-2 border border-gray-200">
+                                                    {{ $prodi->sisa_waktu }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-7 bg-white border border-gray-300 p-4 rounded-md">
+                <h2 class="text-lg font-bold text-gray-700">Lulusan Fakultas {{ $fakultas->nama }}</h2>
+                <div class="flex gap-5">
+                    <div class="flex flex-col gap-3 w-full">
+                        <h2 class="text-sm font-semibold text-gray-500">Presentase Lulusan per Program Studi</h2>
+                        <x-chart height="280px" id="pie_jumlah_lulusan_current_year" type="pie" :labels="$jumlah_lulusan_fakultas['current_year_lulusan_prodi']['labels']" :data="$jumlah_lulusan_fakultas['current_year_lulusan_prodi']['data']" :colors="$jumlah_lulusan_fakultas['current_year_lulusan_prodi']['colors']" title="Jumlah Lulusan Tahun {{ date('Y') }}" />
+                    </div>
+                    <div class="flex flex-col gap-3 w-full">
+                        <h2 class="text-sm font-semibold text-gray-500">Presentase Putus Studi per Program Studi</h2>
+                        <x-chart height="280px" id="pie_jumlah_putus_studi_current_year" type="pie" :labels="$jumlah_lulusan_fakultas['current_year_putus_studi_prodi']['labels']" :data="$jumlah_lulusan_fakultas['current_year_putus_studi_prodi']['data']" :colors="$jumlah_lulusan_fakultas['current_year_putus_studi_prodi']['colors']" title="Jumlah Mahasiswa Putus Studi Tahun {{ date('Y') }}" />
+                    </div>
+                </div>
+                <div class="flex gap-5">
+                    <div class="flex flex-col gap-3 w-[60%]">
+                        <h2 class="text-sm font-semibold text-gray-500">Total Lulusan per Tahun</h2>
+                        <div class="flex flex-col gap-5">
+                            <x-chart id="bar_jumlah_lulusan_fakultas" height="200px" type="bar_stacked" :labels="$jumlah_lulusan_fakultas['total_lulusan']['chart_data']['labels']" :datasets="$jumlah_lulusan_fakultas['total_lulusan']['chart_data']['datasets']" title="Jumlah" />
+                            <x-chart id="pie_jumlah_lulusan_fakultas" height="200px" type="pie" :labels="$jumlah_lulusan_fakultas['total_lulusan']['chart_data']['labels']" :data="$jumlah_lulusan_fakultas['total_lulusan']['chart_data']['datasets'][0]['data']" :colors="$jumlah_lulusan_fakultas['current_year_lulusan_prodi']['colors']" title="Jumlah" />
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3 w-full">
+                        <h2 class="text-sm font-semibold text-gray-500">Total Lulusan per Program Studi</h2>
+                        <x-chart id="bar_jumlah_lulusan_current_year" height="452px" type="bar_horizontal_stacked" :labels="$jumlah_lulusan_fakultas['current_year_lulusan']['chart_data']['labels']" :datasets="$jumlah_lulusan_fakultas['current_year_lulusan']['chart_data']['datasets']" title="Jumlah Lulusan Tahun {{ date('Y') }}" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-7 bg-white border border-gray-300 p-4 rounded-md">
+                <h2 class="text-lg font-bold text-gray-700">IPK Lulusan</h2>
+                <div class="flex gap-5">
+                    <div class="flex flex-col gap-3 w-full">
+                        <h2 class="text-sm font-semibold text-gray-500">Mahasiswa dengan IPK ≥ 3,0</h2>
+                        <x-chart id="line_presentase_lulus_ipk3" height="200px" type="line" :labels="$presentase_lulus_ipk3['labels']" :datasets="$presentase_lulus_ipk3['datasets']" title="Lulus dengan IPK ≥ 3" />
+                    </div>
+                    <div class="flex flex-col gap-3 w-full">
+                        <h2 class="text-sm font-semibold text-gray-500">Mahasiswa dengan IPK ≥ 2,0</h2>
+                        <x-chart id="line_presentase_lulus_ipk2" height="200px" type="line" :labels="$presentase_lulus_ipk2['labels']" :datasets="$presentase_lulus_ipk2['datasets']" title="Persentase Mahasiswa Lulus dengan IPK ≥ 2" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-5">
+                <div class="flex flex-col gap-5 bg-white border border-gray-300 p-4 rounded-md w-full">
+                    <h2 class="text-lg font-bold text-gray-700">Jumlah Dosen</h2>
+                    <div class="flex gap-5">
+                        <h2 class="text-3xl font-black min-w-[120px]">{{ end($dosens_fakultas['data']) }}</h2>
+                        <x-chart id="line_dosens_fakultas" type="line" :labels="$dosens_fakultas['labels']" :data="$dosens_fakultas['data']" title="Jumlah" height="100px" />
+                    </div>
+                </div>
+                <div class="flex flex-col gap-5 bg-white border border-gray-300 p-4 rounded-md w-full">
+                    <h2 class="text-lg font-bold text-gray-700">Jumlah Mahasiswa</h2>
+                    <div class="flex gap-5">
+                        <h2 class="text-3xl font-black min-w-[120px]">{{ end($mahasiswas_fakultas['data']) }}</h2>
+                        <x-chart id="line_mahasiswa_fakultas" type="line" :labels="$mahasiswas_fakultas['labels']" :data="$mahasiswas_fakultas['data']" title="Jumlah Mahasiswa" height="100px" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-7 bg-white border border-gray-300 p-4 rounded-md">
+                <h2 class="text-lg font-bold text-gray-700">Total Mahasiswa per Jenjang</h2>
+                <div class="grid grid-cols-3 gap-5">
+                    @foreach ($mahasiswa_fakultas as $gelar => $year)
+                        <div class="flex flex-col gap-3">
+                            <h2 class="text-sm font-semibold text-gray-500">Mahasiswa {{ $gelar }}</h2>
+                            <div class="flex flex-col gap-4 border border-gray-300 p-4 rounded-md w-full bg-zinc-100">
+                                <h2 class="text-2xl font-bold min-w-[50px]">{{ end($year) }}</h2>
+                                <x-chart id="line_mahasiswa_fakultas_{{ $gelar }}" type="line" :labels="array_keys($year)" :data="array_values($year)" title="Jumlah Mahasiswa {{ $gelar }}" height="100px" />
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            new simpleDatatables.DataTable("#table_program_studi", { perPage: 9999 });
-            new simpleDatatables.DataTable("#table_akreditasi", { perPage: 999 });
-        });
-    </script>
 </x-layout.dashboard>
