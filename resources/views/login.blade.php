@@ -16,6 +16,7 @@
                     <img class="h-[60px]" src="{{ asset('img/logo-unpatti.png') }}" alt="">
                     <img class="h-[60px]" src="{{ asset('img/logo-penjaminan-mutu.png') }}" alt="">
                     <img class="h-[60px]" src="{{ asset('img/logo-dikstis.png') }}" alt="">
+                    <img class="h-[60px]" src="{{ asset('img/logo-blu.png') }}" alt="">
                 </div>
                 <div class="flex flex-col items-center gap-3">
                     <h1 class="text-white text-5xl font-bold" style="text-shadow: 0 0 10px #FFFFFF80">SIPENJAMU</h1>
