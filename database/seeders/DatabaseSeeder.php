@@ -40,26 +40,32 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('magox1905'),
         ]);
         
-        Dosen::create([
-            'program_studi_id' => 3,
-            'nid' => '3523523',
-            'nama' => 'Jhon Latuny'
-        ]);
-        
-        
-        Mahasiswa::create([
-            'program_studi_id' => 3,
-            'nim' => '352352312',
-            'nama' => 'Deo'
-        ]);
-        Mahasiswa::create([
-            'program_studi_id' => 3,
-            'nim' => '3522312',
-            'nama' => 'Deo'
-        ]);
+        $users = [
+            ['name' => 'Paul', 'email' => 'paul@example.com', 'role_id' => 1, 'fakultas_id' => 11],
+            ['name' => 'Johan', 'email' => 'johan@example.com', 'role_id' => 1, 'fakultas_id' => 1],
+            ['name' => 'Arman', 'email' => 'arman@example.com', 'role_id' => 1, 'fakultas_id' => 3],
+            ['name' => 'Lisye', 'email' => 'lisye@example.com', 'role_id' => 1, 'fakultas_id' => 5],
+            ['name' => 'Nova', 'email' => 'nova@example.com', 'role_id' => 1, 'fakultas_id' => 7],
+            ['name' => 'Jufri', 'email' => 'jufri@example.com', 'role_id' => 2, 'fakultas_id' => 1],
+            ['name' => 'James', 'email' => 'james@example.com', 'role_id' => 2, 'fakultas_id' => 1],
+            ['name' => 'Bruri', 'email' => 'bruri@example.com', 'role_id' => 1, 'fakultas_id' => 8],
+        ];
+
+        foreach ($users as $data) {
+            $user = User::factory()->create([
+                'role_id' => $data['role_id'],
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make('sipenjamu-demo'),
+            ]);
+
+            if ($data['fakultas_id']) {
+                $user->fakultases()->sync([$data['fakultas_id']]);
+            }
+        }
+
         
         $user->fakultases()->sync([5,7,10]);
-        
         
         $prodiIds = [1, 2, 3, 4, 5, 6]; // Pastikan ID ini sudah ada di tabel program_studis
 
