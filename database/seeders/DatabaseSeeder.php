@@ -50,8 +50,8 @@ class DatabaseSeeder extends Seeder
             // ['name' => 'Jufri', 'email' => 'jufri@example.com', 'role_id' => 2, 'fakultas_id' => 1],
             // ['name' => 'James', 'email' => 'james@example.com', 'role_id' => 2, 'fakultas_id' => 1],
             // ['name' => 'Bruri', 'email' => 'bruri@example.com', 'role_id' => 1, 'fakultas_id' => 8],
-            ['name' => 'FKIP', 'email' => 'fkip@esipenjamu.com', 'role_id' => 1, 'fakultas_id' => [5]],
-            ['name' => 'Asesor', 'email' => 'asesor@esipenjamu.com', 'role_id' => 1, 'fakultas_id' => [1,2,3,4,5,6,7,8,9,10,11]],
+            ['name' => 'FKIP', 'email' => 'fkip@sipenjamu.com', 'role_id' => 1, 'fakultas_id' => [5]],
+            ['name' => 'Asesor', 'email' => 'asesor@sipenjamu.com', 'role_id' => 1, 'fakultas_id' => [1,2,3,4,5,6,7,8,9,10,11]],
         ];
 
         foreach ($users as $data) {
