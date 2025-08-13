@@ -35,4 +35,6 @@
     
     <hr class="mb-8 border-gray-400 border-dashed">
     
+    @livewire('form.monitoring-jumlah-mahasiswa-bimbingan-akademik-dosen', ['programStudi' => request()->route('programStudi'), 'year' => request()->route('year')])
+    
 </x-layout.form>

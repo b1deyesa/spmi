@@ -2,31 +2,31 @@
 
 namespace App\Livewire\Form;
 
-use Carbon\Carbon;
+use App\Models\Dosen;
 use Livewire\Component;
-use App\Models\Mahasiswa;
 use App\Models\ProgramStudi;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class MonitoringIpkDanMasaStudiLulusan extends Component
+class MonitoringJumlahMahasiswaBimbinganAkademikDosen extends Component
 {
     public ProgramStudi $programStudi;
     public $year;
-    public $mahasiswas;
+    public $dosens;
     public $datas = [];
     public $datas_remove = [];
     
     public function mount()
     {
-        $this->mahasiswas = $this->programStudi->mahasiswas()->pluck('nim', 'nim')->toJson();
+        $this->dosens = $this->programStudi->dosens()->pluck('nid', 'nid')->toJson();
         
-        foreach ($this->programStudi->mahasiswas()->whereYear('tanggal_lulus', $this->year)->get() as $mahasiswa) {
+        foreach ($this->programStudi->dosens()->get() as $dosen) {
             $this->datas[] = [
-                'id' => $mahasiswa->id,
-                'nim' => $mahasiswa->nim,
-                'nama' => $mahasiswa->nama,
-                'ipk' => $mahasiswa->ipk,
-                'lama_studi' => Carbon::parse($mahasiswa->tanggal_lulus)->format('Y') - Carbon::parse($mahasiswa->tanggal_masuk)->format('Y'),
+                'id' => $dosen->id,
+                'nid' => $dosen->nid,
+                'nama' => $dosen->nama,
+                'tahun_ajaran' => $dosen->tahun_ajaran,
+                'total' => $dosen->total
             ];
         }
         
@@ -38,7 +38,7 @@ class MonitoringIpkDanMasaStudiLulusan extends Component
                 'ipk' => null,
                 'lama_studi' => null
             ];
-        } 
+        }
     }
     
     public function add()
@@ -55,9 +55,9 @@ class MonitoringIpkDanMasaStudiLulusan extends Component
     public function updated()
     {
         foreach ($this->datas as $index => $data) {
-            $mahasiswa = Mahasiswa::where('nim', $data['nim'])?->first();
-            if ($mahasiswa) {
-                $this->datas[$index]['nama'] = $mahasiswa?->nama;
+            $dosen = Dosen::where('nim', $data['nim'])?->first();
+            if ($dosen) {
+                $this->datas[$index]['nama'] = $dosen?->nama;
             }
         }
     }
@@ -87,7 +87,7 @@ class MonitoringIpkDanMasaStudiLulusan extends Component
                 if (is_null($data['id'])) {
                     $rules["datas.$index.nim"] = 'required';
                 } else {
-                    $rules["datas.$index.nim"] = 'required|unique:mahasiswas,nim,' . ($data['id'] ?? 'null');
+                    $rules["datas.$index.nim"] = 'required|unique:dosens,nim,' . ($data['id'] ?? 'null');
                 }
                 $rules["datas.$index.nama"] = 'required';
                 $messages["datas.$index.nim.required"] = 'NIM tidak boleh kosong';
@@ -101,7 +101,7 @@ class MonitoringIpkDanMasaStudiLulusan extends Component
                 if (is_null($data['id'])) {
                     $rules["datas.$index.nim"] = 'required';
                 } else {
-                    $rules["datas.$index.nim"] = 'required|unique:mahasiswas,nim,' . ($data['id'] ?? 'null');
+                    $rules["datas.$index.nim"] = 'required|unique:dosens,nim,' . ($data['id'] ?? 'null');
                 }
                 $rules["datas.$index.nama"] = 'required';
                 $messages["datas.$index.nim.required"] = 'NIM tidak boleh kosong';
@@ -119,7 +119,7 @@ class MonitoringIpkDanMasaStudiLulusan extends Component
         
         foreach ($this->datas_remove as $id) {
             if ($id !== null) {
-                Mahasiswa::where('id', $id)->update([
+                Dosen::where('id', $id)->update([
                     'tanggal_masuk' => null,
                     'tanggal_lulus' => null
                 ]);
@@ -128,8 +128,8 @@ class MonitoringIpkDanMasaStudiLulusan extends Component
         
         foreach ($this->datas as $data) {
             if (!empty(array_filter($data, fn($v) => !is_null($v)))) {
-                if (!empty($data['id']) && Mahasiswa::where('id', $data['id'])->exists()) {
-                    Mahasiswa::where('id', $data['id'])->update([
+                if (!empty($data['id']) && Dosen::where('id', $data['id'])->exists()) {
+                    Dosen::where('id', $data['id'])->update([
                         'nim' => $data['nim'],
                         'nama' => $data['nama'],
                         'ipk' => $data['ipk'],
@@ -137,7 +137,7 @@ class MonitoringIpkDanMasaStudiLulusan extends Component
                         'tanggal_lulus' => $this->year .'-01-01'
                     ]);
                 } else {
-                    Mahasiswa::updateOrCreate([
+                    Dosen::updateOrCreate([
                         'program_studi_id' => $this->programStudi->id,
                         'nim' => $data['nim']
                     ], [
@@ -155,7 +155,7 @@ class MonitoringIpkDanMasaStudiLulusan extends Component
     
     public function render()
     {
-        return view('livewire.form.monitoring-ipk-dan-masa-studi-lulusan', [
+        return view('livewire.form.monitoring-jumlah-mahasiswa-bimbingan-akademik-dosen', [
             'program_studi' => $this->programStudi,
             'year' => $this->year
         ]);
