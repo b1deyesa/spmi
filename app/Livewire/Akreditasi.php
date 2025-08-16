@@ -10,16 +10,14 @@ class Akreditasi extends Component
 {
     public ProgramStudi $program_studi;
 
-    public $akreditasis;   // List pilihan akreditasi
-    public $akreditasi_id; // ID akreditasi terpilih
-    public $pivot_data = []; // Data dari tabel pivot
+    public $akreditasis;  
+    public $akreditasi_id;
+    public $pivot_data = [];
 
     public function mount()
     {
-        // Ambil semua pilihan akreditasi
         $this->akreditasis = ModelsAkreditasi::all();
 
-        // Ambil akreditasi pertama jika ada
         $first = $this->program_studi->akreditasis()->first();
 
         if ($first) {
