@@ -66,26 +66,5 @@ class DatabaseSeeder extends Seeder
                 $user->fakultases()->sync($data['fakultas_id']);
             }
         }
-        
-        $prodiIds = [1, 2, 3, 4, 5, 6]; // Pastikan ID ini sudah ada di tabel program_studis
-
-        foreach ($prodiIds as $i => $id) {
-            $programStudi = ProgramStudi::find($id);
-
-            if (!$programStudi) {
-                continue; // Lewatkan kalau tidak ditemukan
-            }
-
-            // Buat data akreditasi inline (melalui relasi pivot)
-            $programStudi->akreditasis()->sync([
-                [
-                    'akreditasi_id' => rand(1,6),
-                    'tanggal_berlaku' => ($i % 2 === 0) ? '2022-01-01' : '2015-01-01',
-                    'tanggal_berakhir' => ($i % 2 === 0) ? '2027-01-01' : '2020-01-01',
-                    'nomor_sk' => 'SK-00' . $id . '/ABC',
-                    'is_internasional' => false,
-                ],
-            ], false); // false agar tidak menghapus yang lain
-        }
     }
 }
