@@ -39,8 +39,6 @@ class IndexController extends Controller
 
         $programStudiByStrata = $program_studis->groupBy(fn($prodi) => $prodi->jenjang->inisial);
         
-        dd($akreditasi_fakultas);
-        
         return view('dashboard.index', [
             'fakultas' => $fakultas,
             'fakultas_all' => $fakultas_all,
