@@ -42,16 +42,16 @@ class DatabaseSeeder extends Seeder
         // $deo->fakultases()->sync([5,7,10]);
         
         $users = [
-            // ['name' => 'Paul', 'email' => 'paul@example.com', 'role_id' => 1, 'fakultas_id' => 11],
-            // ['name' => 'Johan', 'email' => 'johan@example.com', 'role_id' => 1, 'fakultas_id' => 1],
-            // ['name' => 'Arman', 'email' => 'arman@example.com', 'role_id' => 1, 'fakultas_id' => 3],
-            // ['name' => 'Lisye', 'email' => 'lisye@example.com', 'role_id' => 1, 'fakultas_id' => 5],
-            // ['name' => 'Nova', 'email' => 'nova@example.com', 'role_id' => 1, 'fakultas_id' => 7],
-            // ['name' => 'Jufri', 'email' => 'jufri@example.com', 'role_id' => 2, 'fakultas_id' => 1],
-            // ['name' => 'James', 'email' => 'james@example.com', 'role_id' => 2, 'fakultas_id' => 1],
-            // ['name' => 'Bruri', 'email' => 'bruri@example.com', 'role_id' => 1, 'fakultas_id' => 8],
-            ['name' => 'FKIP', 'email' => 'fkip@sipenjamu.com', 'role_id' => 1, 'fakultas_id' => [5]],
-            ['name' => 'Asesor', 'email' => 'asesor@sipenjamu.com', 'role_id' => 1, 'fakultas_id' => [1,2,3,4,5,6,7,8,9,10,11]],
+            ['name' => 'Paul', 'email' => 'paul@example.com', 'role_id' => 1, 'fakultas_id' => 11],
+            ['name' => 'Johan', 'email' => 'johan@example.com', 'role_id' => 1, 'fakultas_id' => 1],
+            ['name' => 'Arman', 'email' => 'arman@example.com', 'role_id' => 1, 'fakultas_id' => 3],
+            ['name' => 'Lisye', 'email' => 'lisye@example.com', 'role_id' => 1, 'fakultas_id' => 5],
+            ['name' => 'Nova', 'email' => 'nova@example.com', 'role_id' => 1, 'fakultas_id' => 7],
+            ['name' => 'Jufri', 'email' => 'jufri@example.com', 'role_id' => 2, 'fakultas_id' => 1],
+            ['name' => 'James', 'email' => 'james@example.com', 'role_id' => 2, 'fakultas_id' => 1],
+            ['name' => 'Bruri', 'email' => 'bruri@example.com', 'role_id' => 1, 'fakultas_id' => 8],
+            ['name' => 'FKIP', 'email' => 'fkip@esipenjamu.com', 'role_id' => 1, 'fakultas_id' => [5]],
+            ['name' => 'FKIP', 'email' => 'asesor@esipenjamu.com', 'role_id' => 1, 'fakultas_id' => [1,2]],
         ];
 
         foreach ($users as $data) {
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
                 'role_id' => $data['role_id'],
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'password' => Hash::make('sipenjamu2025'),
+                'password' => Hash::make('sipenjamu-demo'),
             ]);
 
             if ($data['fakultas_id']) {
