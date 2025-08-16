@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('program_studi_id')->constrained('program_studis')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('akreditasi_id')->constrained('akreditasis')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->date('tanggal_berlaku');
-            $table->date('tanggal_berakhir');
-            $table->string('nomor_sk');
+            $table->date('tanggal_berlaku')->nullable();
+            $table->date('tanggal_berakhir')->nullable();
+            $table->string('nomor_sk')->nullable();
             $table->boolean('is_internasional')->default(false);
         });
     }
