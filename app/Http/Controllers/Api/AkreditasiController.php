@@ -28,15 +28,18 @@ class AkreditasiController extends Controller
     {
         $today = Carbon::today();
         $startYear = $today->year - $yearsBack;
-        
         $endYear   = $today->year + $yearsForward;
 
+        // Semua akreditasi + prodi terkait
         $akreditasis = Akreditasi::with(['programStudis'])->get();
+
+        // Semua prodi
+        $allProgramStudis = ProgramStudi::all();
 
         $result = [];
 
         for ($year = $startYear; $year <= $endYear; $year++) {
-            $result[$year] = $akreditasis->map(function ($akreditasi) use ($year) {
+            $yearData = $akreditasis->map(function ($akreditasi) use ($year) {
                 $programs = $akreditasi->programStudis->filter(function ($item) use ($year) {
                     $start = Carbon::parse($item->pivot->tanggal_berlaku)->year;
                     $end   = Carbon::parse($item->pivot->tanggal_berakhir)->year;
@@ -57,6 +60,28 @@ class AkreditasiController extends Controller
                     'program_studi' => $programs->isEmpty() ? [] : $programs,
                 ];
             })->values();
+
+            // Cari prodi yang tidak punya akreditasi sama sekali
+            $prodiWithoutAkreditasi = $allProgramStudis->filter(function ($prodi) use ($akreditasis) {
+                return !$akreditasis->flatMap->programStudis->contains('id', $prodi->id);
+            })->map(function ($prodi) {
+                return [
+                    'prodi_id'         => $prodi->id,
+                    'nama'             => $prodi->nama,
+                    'tanggal_berlaku'  => null,
+                    'tanggal_berakhir' => null,
+                    'nomor_sk'         => null,
+                    'is_internasional' => null,
+                ];
+            })->values();
+
+            // Tambahkan kategori "Tidak Terakreditasi"
+            $yearData->push([
+                'akreditasi'    => 'Tidak Terakreditasi',
+                'program_studi' => $prodiWithoutAkreditasi,
+            ]);
+
+            $result[$year] = $yearData;
         }
 
         return $result;
