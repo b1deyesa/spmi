@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::find(8)->fakultases()->sync([1,2,3,4,5,6,7,8,9,10,11]);
+        User::find(9)->fakultases()->sync([1,2,3,4,5,6,7,8,9,10,11]);
         
         // $this->call([
         //     AkreditasiSeeder::class,
