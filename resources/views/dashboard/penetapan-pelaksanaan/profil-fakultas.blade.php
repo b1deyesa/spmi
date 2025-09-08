@@ -16,7 +16,7 @@
         </div>
         <div class="flex items-center text-sm">
             <select class="border rounded-md w-[100px] px-2 py-1 cursor-pointer border-gray-300 bg-zinc-50" onchange="location.href = '{{ route(Route::currentRouteName(), ['fakultas' => request()->route('fakultas'), 'year' => '__YEAR__']) }}'.replace('__YEAR__', this.value);">
-                @foreach (range(date('Y'), date('Y') - 5) as $year)
+                @foreach (range(date('Y'), date('Y') - 3) as $year)
                     <option value="{{ $year }}" @selected($year == request()->route('year'))>{{ $year }}</option>
                 @endforeach
             </select>
