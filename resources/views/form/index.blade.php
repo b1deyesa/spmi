@@ -32,10 +32,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2" style="opacity: 50%; pointer-events: none">
             <div class="flex items-center justify-between text-sm p-2 pl-4 pr-3 rounded-md border border-zinc-300 bg-zinc-50">
                 <div class="flex flex-col">
-                    <p>Monitoring Jumlah Mahasiswa Bimbingan Akademik Dosen UNPATTI</p>
+                    <p>(Unreleased) Monitoring Jumlah Mahasiswa Bimbingan Akademik Dosen UNPATTI</p>
                     <small class="text-xs text-gray-400">Belum diisi</small>
                 </div>
                 <div class="flex">
@@ -43,10 +43,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2" style="opacity: 50%; pointer-events: none">
             <div class="flex items-center justify-between text-sm p-2 pl-4 pr-3 rounded-md border border-zinc-300 bg-zinc-50">
                 <div class="flex flex-col">
-                    <p>Monitoring Materi dan Kehadiran Dosen Dalam Perkuliahan</p>
+                    <p>(Unreleased) Monitoring Materi dan Kehadiran Dosen Dalam Perkuliahan</p>
                     <small class="text-xs text-gray-400">Belum diisi</small>
                 </div>
                 <div class="flex">
@@ -54,10 +54,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2" style="opacity: 50%; pointer-events: none">
             <div class="flex items-center justify-between text-sm p-2 pl-4 pr-3 rounded-md border border-zinc-300 bg-zinc-50">
                 <div class="flex flex-col">
-                    <p>Monitoring Dosen Tetap UNPATTI</p>
+                    <p>(Unreleased) Monitoring Dosen Tetap UNPATTI</p>
                     <small class="text-xs text-gray-400">Belum diisi</small>
                 </div>
                 <div class="flex">
@@ -65,10 +65,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2" style="opacity: 50%; pointer-events: none">
             <div class="flex items-center justify-between text-sm p-2 pl-4 pr-3 rounded-md border border-zinc-300 bg-zinc-50">
                 <div class="flex flex-col">
-                    <p>Monitoring Dosen Tidak Tetap UNPATTI</p>
+                    <p>(Unreleased) Monitoring Dosen Tidak Tetap UNPATTI</p>
                     <small class="text-xs text-gray-400">Belum diisi</small>
                 </div>
                 <div class="flex">
@@ -76,10 +76,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2" style="opacity: 50%; pointer-events: none">
             <div class="flex items-center justify-between text-sm p-2 pl-4 pr-3 rounded-md border border-zinc-300 bg-zinc-50">
                 <div class="flex flex-col">
-                    <p>Monitoring Kinerja Dosen UNPATTI</p>
+                    <p>(Unreleased) Monitoring Kinerja Dosen UNPATTI</p>
                     <small class="text-xs text-gray-400">Belum diisi</small>
                 </div>
                 <div class="flex">
@@ -87,10 +87,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2" style="opacity: 50%; pointer-events: none">
             <div class="flex items-center justify-between text-sm p-2 pl-4 pr-3 rounded-md border border-zinc-300 bg-zinc-50">
                 <div class="flex flex-col">
-                    <p>Monitoring Tenaga Kependidikan UNPATTI</p>
+                    <p>(Unreleased) Monitoring Tenaga Kependidikan UNPATTI</p>
                     <small class="text-xs text-gray-400">Belum diisi</small>
                 </div>
                 <div class="flex">
@@ -98,10 +98,10 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2" style="opacity: 50%; pointer-events: none">
             <div class="flex items-center justify-between text-sm p-2 pl-4 pr-3 rounded-md border border-zinc-300 bg-zinc-50">
                 <div class="flex flex-col">
-                    <p>Rekapitulasi Evaluasi Skor Toefl Lulusan UNPATTI</p>
+                    <p>(Unreleased) Rekapitulasi Evaluasi Skor Toefl Lulusan UNPATTI</p>
                     <small class="text-xs text-gray-400">Belum diisi</small>
                 </div>
                 <div class="flex">
