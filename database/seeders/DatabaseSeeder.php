@@ -40,7 +40,22 @@ class DatabaseSeeder extends Seeder
             'email' => 'bideyesa@gmail.com',
             'password' => Hash::make('magox1905'),
         ]);
+        
         $deo->fakultases()->sync([5,7,10]);
+        
+        $fakultas = [
+            ['nama' => 'Teknik', 'inisial' => 'FATEK', 'warna' => '#2E3B4E'],
+            ['nama' => 'Pertanian', 'inisial' => 'FAPERTA', 'warna' => '#7C9D4F'],
+            ['nama' => 'Hukum', 'inisial' => 'FH', 'warna' => '#5A3D2C'],
+            ['nama' => 'Kedokteran', 'inisial' => 'FK', 'warna' => '#D6C9B4'],
+            ['nama' => 'Keguruan dan Ilmu Pendidikan', 'inisial' => 'FKIP', 'warna' => '#F2A900'],
+            ['nama' => 'Ilmu Sosial dan Ilmu Politik', 'inisial' => 'FISIP', 'warna' => '#3B6D8C'],
+            ['nama' => 'Ekonomi dan Bisnis', 'inisial' => 'FEBIS', 'warna' => '#FF8C00'],
+            ['nama' => 'Perikanan dan Ilmu Kelautan', 'inisial' => 'FPIK', 'warna' => '#1F77B4'],
+            ['nama' => 'Sains dan Teknologi', 'inisial' => 'FST', 'warna' => '#FF5733'],
+            ['nama' => 'Program Studi Diluar Kampus Utama', 'inisial' => 'PSDKU', 'warna' => '#FFB6C1'],
+            ['nama' => 'Pascasarjana', 'inisial' => 'Pasca', 'warna' => '#4B0082'],
+        ];
         
         $users = [
             ['name' => 'Paul', 'email' => 'paul@example.com', 'role_id' => 1, 'fakultas_id' => [11]],
@@ -54,6 +69,20 @@ class DatabaseSeeder extends Seeder
             ['name' => 'FKIP', 'email' => 'fkip@esipenjamu.com', 'role_id' => 1, 'fakultas_id' => [5]],
             ['name' => 'FKIP', 'email' => 'asesor@esipenjamu.com', 'role_id' => 1, 'fakultas_id' => [1,2]],
         ];
+        
+        
+        foreach ($fakultas as $index => $f) {
+            $email = strtolower($f['inisial']) . '@unpatti.ac.id';
+            $password = $f['inisial'] . rand(1000, 9999);
+        
+            $users[] = [
+                'name' => $f['nama'],
+                'email' => $email,
+                'password' => $password,
+                'role_id' => 2, // role default fakultas
+                'fakultas_id' => [$index + 1],
+            ];
+        }
         
         foreach ($users as $data) {
             $user = User::factory()->create([

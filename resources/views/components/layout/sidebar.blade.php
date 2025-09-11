@@ -26,7 +26,7 @@
                 <li><a class="hover:text-gray-300" href="{{ route('form.index', ['fakultas' => $fakultas]) }}"><i class="fa-solid fa-file-lines"></i></a></li>
                 {{-- <li><a class="hover:text-gray-300" href=""><i class="fa-solid fa-print"></i></a></li> --}}
                 @role(['admin'])
-                    {{-- <li><a class="hover:text-gray-300" href="{{ route('setting.index') }}"><i class="fa-solid fa-gear"></i></a></li> --}}
+                    <li><a class="hover:text-gray-300" href="{{ route('setting.index') }}"><i class="fa-solid fa-gear"></i></a></li>
                 @endrole
             </ul>
             <form class="mt-auto" action="{{ route('login.logout') }}" method="POST">
