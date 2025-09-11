@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $f['nama'],
                 'email' => $email,
                 'password' => $password,
-                'role_id' => 2, // role default fakultas
+                'role_id' => 1, // role default fakultas
                 'fakultas_id' => [$index + 1],
             ];
         }
